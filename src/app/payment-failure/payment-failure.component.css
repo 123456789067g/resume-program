@@ -1,0 +1,15 @@
+.payment-failure-container {
+  text-align: center;
+  margin-top: 50px;
+  font-family: Arial, sans-serif;
+}
+
+.payment-failure-container h1 {
+  font-size: 36px;
+  color: red;
+}
+
+.payment-failure-container p {
+  font-size: 18px;
+  color: #333;
+}

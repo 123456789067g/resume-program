@@ -1,0 +1,181 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <h2>Final Confirmation</h2>
+
+  <div class="form-group">
+    <label>Are you willing to relocate?</label>
+    <div class="radio-group">
+      <input
+        type="radio"
+        formControlName="willingToRelocate"
+        value="yes"
+      /> Yes
+      <input
+        type="radio"
+        formControlName="willingToRelocate"
+        value="no"
+      /> No
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Do you have Competition Agreements?</label>
+    <div class="radio-group">
+      <input
+        type="radio"
+        formControlName="competitionAgreements"
+        value="yes"
+      /> Yes
+      <input
+        type="radio"
+        formControlName="competitionAgreements"
+        value="no"
+      /> No
+    </div>
+  </div>
+
+  <div
+    class="form-group"
+    *ngIf="form.get('competitionAgreements')?.value === 'yes'"
+  >
+    <label>
+      Please input the companies you have an NCA with (comma-separated):
+    </label>
+    <input type="text" formControlName="ncaCompanies" />
+  </div>
+
+  <div class="form-group">
+    <label>Are you a US citizen?</label>
+    <div class="radio-group">
+      <input type="radio" formControlName="usCitizen" value="yes" /> Yes
+      <input type="radio" formControlName="usCitizen" value="no" /> No
+    </div>
+  </div>
+
+  <div *ngIf="form.get('usCitizen')?.value === 'no'">
+    <div class="form-group">
+      <label>Are you authorized to work in the US?</label>
+      <div class="radio-group">
+        <input
+          type="radio"
+          formControlName="authorizedToWork"
+          value="yes"
+        /> Yes
+        <input
+          type="radio"
+          formControlName="authorizedToWork"
+          value="no"
+        /> No
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Do you need sponsorship?</label>
+      <div class="radio-group">
+        <input
+          type="radio"
+          formControlName="sponsorship"
+          value="yes"
+        /> Yes
+        <input
+          type="radio"
+          formControlName="sponsorship"
+          value="no"
+        /> No
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Your nationality</label>
+      <select formControlName="nationality">
+        <option
+          *ngFor="let country of countryOptions"
+          [value]="country.code"
+        >
+          {{ country.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Are you a government employee?</label>
+    <select formControlName="governmentEmployee">
+      <option value="no">No</option>
+      <option value="current">Current</option>
+      <option value="former">Former</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Please select your gender:</label>
+    <select formControlName="gender">
+      <option value="man">Man</option>
+      <option value="woman">Woman</option>
+      <option value="non-binary">Non-binary</option>
+      <option value="intersex">Intersex</option>
+      <option value="two-spirit">Two-spirit</option>
+      <option value="gender-non-conforming">Gender-non-conforming</option>
+      <option value="transgender">Transgender</option>
+      <option value="not-answer">Prefer not to answer</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>What's your race?</label>
+    <select formControlName="race">
+      <option value="american-indian">American Indian</option>
+      <option value="asian">Asian</option>
+      <option value="black">Black</option>
+      <option value="hispanic">Hispanic</option>
+      <option value="native-hawaiian">Native Hawaiian</option>
+      <option value="white">White</option>
+      <option value="not-answer">Prefer not to answer</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label>Are you in Service?</label>
+    <div class="radio-group">
+      <input type="radio" formControlName="inService" value="yes" /> Yes
+      <input type="radio" formControlName="inService" value="no" /> No
+    </div>
+  </div>
+
+  <div *ngIf="form.get('inService')?.value === 'yes'">
+    <div class="form-group">
+      <label>What's your military branch?</label>
+      <select formControlName="militaryBranch">
+        <option
+          *ngFor="let branch of militaryBranches"
+          [value]="branch"
+        >
+          {{ branch }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="form.get('inService')?.value === 'no'">
+    <div class="form-group">
+      <label>Are you a veteran?</label>
+      <select formControlName="veteranStatus">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+        <option value="not-answer">Prefer not to answer</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label>Are you a military spouse?</label>
+      <select formControlName="militarySpouse">
+        <option value="yes">Yes</option>
+        <option value="no">No</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="button-container">
+    <button type="button" (click)="onPrevious()">Previous</button>
+    <button type="submit" [disabled]="form.invalid">Submit</button>
+  </div>
+</form>

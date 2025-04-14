@@ -1,0 +1,142 @@
+<form [formGroup]="form">
+  <h2>Confirm Education History</h2>
+
+  <div formArrayName="educationHistory">
+    <div
+      *ngFor="let edu of educationHistory.controls; let i = index"
+      [formGroupName]="i"
+      class="education-entry"
+    >    
+      <div class="form-row">
+        <div class="form-group">
+          <label for="university-{{ i }}">University</label>
+          <input
+            id="university-{{ i }}"
+            formControlName="university"
+            type="text"
+            required
+          />
+          <div
+            *ngIf="edu.get('university')?.invalid && edu.get('university')?.touched"
+            class="error"
+          >
+            University is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="major-{{ i }}">Major</label>
+          <input
+            id="major-{{ i }}"
+            formControlName="major"
+            type="text"
+            required
+          />
+          <div
+            *ngIf="edu.get('major')?.invalid && edu.get('major')?.touched"
+            class="error"
+          >
+            Major is required.
+          </div>
+        </div>
+      </div>
+    
+      <div class="form-row">
+        <div class="form-group">
+          <label for="degree-{{ i }}">Degree</label>
+          <select id="degree-{{ i }}" formControlName="degree" required>
+            <option *ngFor="let degree of degreeOptions" [value]="degree">
+              {{ degree }}
+          </select>
+          <div
+            *ngIf="edu.get('degree')?.invalid && edu.get('degree')?.touched"
+            class="error"
+          >
+            Degree is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="degreeOther-{{ i }}">Other Degree</label>
+          <input
+            id="degreeOther-{{ i }}"
+            formControlName="degreeOther"
+            type="text"
+          />
+          <div
+            *ngIf="
+              edu.get('degreeOther')?.invalid && edu.get('degreeOther')?.touched
+            "
+            class="error"
+          >
+            Other Degree is required.
+          </div>
+        </div>
+      </div>
+    
+      <div class="form-row">
+        <div class="form-group">
+          <label for="startDate-{{ i }}">Start Date</label>
+          <input
+            id="startDate-{{ i }}"
+            formControlName="startDate"
+            type="date"
+            required
+          />
+          <div
+            *ngIf="edu.get('startDate')?.invalid && edu.get('startDate')?.touched"
+            class="error"
+          >
+            Start Date is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="graduateDate-{{ i }}">Graduate Date</label>
+          <input
+            id="graduateDate-{{ i }}"
+            formControlName="graduateDate"
+            type="date"
+            required
+          />
+          <div
+            *ngIf="
+              edu.get('graduateDate')?.invalid && edu.get('graduateDate')?.touched
+            "
+            class="error"
+          >
+            Graduate Date is required.
+          </div>
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <label for="current-{{ i }}">Current Education Status</label>
+        <select id="current-{{ i }}" formControlName="current" required>
+          <option value="">Select</option>
+          <option value="ongoing">Ongoing</option>
+          <option value="completed">Completed</option>
+        </select>
+        <div
+          *ngIf="edu.get('current')?.invalid && edu.get('current')?.touched"
+          class="error"
+        >
+          Current Education Status is required.
+        </div>
+      </div>
+    
+      <div class="remove-button-container">
+        <button type="button" (click)="removeEducationHistory(i)">Remove</button>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" (click)="addEducationHistory()">Add Education</button>
+
+  <div class="button-container">
+    <button type="button" (click)="onPrevious()">Previous</button>
+    <button type="button" (click)="onNext()" [disabled]="form.invalid">
+      Next
+    </button>
+  </div>
+</form>
